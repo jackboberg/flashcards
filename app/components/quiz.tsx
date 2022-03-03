@@ -1,11 +1,6 @@
 import { CardDisplay } from "~/components/card";
 
-import type { Card } from "~/components/card";
-
-export interface Quiz {
-  id: number;
-  cards: Card[];
-};
+import type { Quiz } from "~/utils/quiz.server";
 
 export function QuizDisplay({ quiz: { cards } }: { quiz: Quiz }) {
   return (

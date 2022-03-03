@@ -1,10 +1,6 @@
 import useToggle from '~/hooks/useToggle';
 
-export interface Card {
-  id: number;
-  front: string;
-  back: string;
-};
+import type { Card } from "~/utils/quiz.server";
 
 export function CardDisplay({
   card: { front, back }
