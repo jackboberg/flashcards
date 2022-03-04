@@ -1,3 +1,5 @@
+import { find } from "lodash";
+
 const sampleQuizzes = [
   {
     id: "63D7FEA9-4F44-4C62-B9A5-6615F5D6DCC9",
@@ -34,5 +36,5 @@ export async function getQuizzes(): Promise<Quiz[]> {
 }
 
 export async function getQuiz(id: string|undefined): Promise<Quiz|undefined> {
-  return sampleQuizzes.find((quiz) => quiz.id == id);
+  return find(sampleQuizzes, { id });
 }
