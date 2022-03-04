@@ -6,10 +6,10 @@ import {
 } from "remix";
 
 import { QuizDisplay } from "~/components/quiz";
-import { getQuiz, Quiz } from "~/utils/quiz.server";
+import { getQuiz, QuizWithCards } from "~/utils/quiz.server";
 
 interface LoaderData {
-  quiz: Quiz;
+  quiz: QuizWithCards;
 };
 
 export const loader: LoaderFunction = async ({

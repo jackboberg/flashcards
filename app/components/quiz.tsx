@@ -1,13 +1,16 @@
 import { CardDisplay } from "~/components/card";
 
-import type { Quiz } from "~/utils/quiz.server";
+import type { QuizWithCards } from "~/utils/quiz.server";
 
-export function QuizDisplay({ quiz: { cards } }: { quiz: Quiz }) {
+export function QuizDisplay({ quiz }: { quiz: QuizWithCards }) {
   return (
     <div>
-      { cards.map((card) => (
-        <CardDisplay key={`card-${card.id}`} card={card} />
-      )) }
+      <h1>{quiz.title}</h1>
+      <div>
+        { quiz.cards.map((card) => (
+          <CardDisplay key={`card-${card.id}`} card={card} />
+        )) }
+      </div>
     </div>
   );
 }
