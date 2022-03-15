@@ -1,13 +1,12 @@
 import {
-  Link,
-  LoaderFunction,
-  Outlet,
   useCatch,
   useLoaderData,
+  type LoaderFunction,
 } from "remix";
 import { isEmpty } from "lodash";
 
-import { getQuizzes, Quiz } from "~/utils/quiz.server";
+import { QuizList } from "~/components/quiz";
+import { getQuizzes, type Quiz } from "~/utils/quiz.server";
 
 interface LoaderData {
   quizzes: Quiz[];
@@ -29,16 +28,7 @@ export default function QuizzesRoute() {
   const data = useLoaderData<LoaderData>();
 
   return (
-    <div>
-      <ul>
-        {data.quizzes.map((quiz) => (
-          <li key={`quiz-${quiz.id}`}>
-            <Link to={quiz.id}>{quiz.title}</Link>
-          </li>
-        ))}
-      </ul>
-      <Outlet />
-    </div>
+    <QuizList quizzes={data.quizzes} />
   );
 }
 
