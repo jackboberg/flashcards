@@ -5,14 +5,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  type MetaFunction
 } from "remix";
 import { useContext, useEffect } from 'react';
 import { withEmotionCache } from '@emotion/react';
-import { ChakraProvider } from '@chakra-ui/react';
+import { Container, ChakraProvider, Flex } from '@chakra-ui/react';
 
-import { ServerStyleContext, ClientStyleContext } from './context';
-
-import type { MetaFunction } from "remix";
+import { ServerStyleContext, ClientStyleContext } from "./context";
+import { Header } from "~/components/layout";
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
@@ -77,7 +77,12 @@ export default function App() {
   return (
     <Document>
       <ChakraProvider>
-        <Outlet />
+        <Flex direction="column">
+          <Header />
+          <Container maxW="container.lg">
+            <Outlet />
+          </Container>
+        </Flex>
       </ChakraProvider>
     </Document>
   )

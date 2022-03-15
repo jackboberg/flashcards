@@ -1,9 +1,9 @@
-import { Link } from "remix";
+import { Center, Text } from '@chakra-ui/react';
 
 export default function Index() {
   return (
-    <div>
-      <Link to="quizzes">Take quiz</Link>
-    </div>
+    <Center>
+      <Text fontSize="6xl">Flash Cards!</Text>
+    </Center>
   );
 }
