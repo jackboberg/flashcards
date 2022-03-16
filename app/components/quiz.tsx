@@ -1,11 +1,5 @@
 import { Link } from "remix";
-import {
-  Box,
-  Center,
-  Divider,
-  Heading,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Box, Center, Divider, Heading, SimpleGrid } from "@chakra-ui/react";
 
 import { CardDisplay } from "~/components/card";
 
@@ -13,7 +7,7 @@ import type { Quiz, QuizWithCards } from "~/utils/quiz.server";
 
 export function QuizList({ quizzes }: { quizzes: Quiz[] }) {
   return (
-    <SimpleGrid columns={{sm: 2, md: 3}} spacing="4" pt="4">
+    <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="4" pt="4">
       {quizzes.map((quiz) => (
         <QuizPreview key={`quiz-${quiz.id}`} quiz={quiz} />
       ))}
@@ -38,7 +32,9 @@ export function QuizDisplay({ quiz }: { quiz: QuizWithCards }) {
 
   return (
     <Box>
-      <Heading as="h2" size="lg" p="2">{quiz.title}</Heading>
+      <Heading as="h2" size="lg" p="2">
+        {quiz.title}
+      </Heading>
       <Divider />
       <Center mt="8">
         <CardDisplay card={card} />

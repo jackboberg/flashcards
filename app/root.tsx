@@ -5,11 +5,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  type MetaFunction
+  type MetaFunction,
 } from "remix";
-import { useContext, useEffect } from 'react';
-import { withEmotionCache } from '@emotion/react';
-import { Container, ChakraProvider, Flex } from '@chakra-ui/react';
+import { useContext, useEffect } from "react";
+import { withEmotionCache } from "@emotion/react";
+import { Container, ChakraProvider, Flex } from "@chakra-ui/react";
 
 import { ServerStyleContext, ClientStyleContext } from "./context";
 import { Header } from "~/components/layout";
@@ -20,7 +20,7 @@ export const meta: MetaFunction = () => {
 
 interface DocumentProps {
   children: React.ReactNode;
-};
+}
 
 const Document = withEmotionCache(
   ({ children }: DocumentProps, emotionCache) => {
@@ -57,7 +57,7 @@ const Document = withEmotionCache(
           {serverSyleData?.map(({ key, ids, css }) => (
             <style
               key={key}
-              data-emotion={`${key} ${ids.join(' ')}`}
+              data-emotion={`${key} ${ids.join(" ")}`}
               dangerouslySetInnerHTML={{ __html: css }}
             />
           ))}
@@ -66,7 +66,7 @@ const Document = withEmotionCache(
           {children}
           <ScrollRestoration />
           <Scripts />
-          {process.env.NODE_ENV === 'development' ? <LiveReload /> : null}
+          {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
         </body>
       </html>
     );
@@ -85,5 +85,5 @@ export default function App() {
         </Flex>
       </ChakraProvider>
     </Document>
-  )
+  );
 }
