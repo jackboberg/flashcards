@@ -4,9 +4,10 @@ import {
   useLoaderData,
   useParams,
 } from "remix";
+import { shuffle } from "lodash";
 
 import { QuizDisplay } from "~/components/quiz";
-import { getQuiz, QuizWithCards } from "~/utils/quiz.server";
+import { getQuiz, type QuizWithCards } from "~/utils/quiz.server";
 
 interface LoaderData {
   quiz: QuizWithCards;
@@ -20,13 +21,13 @@ export const loader: LoaderFunction = async ({
     throw new Response("Not found.", { status: 404 });
   }
   const data: LoaderData = {
-    quiz: quiz,
+    quiz: { ...quiz, cards: shuffle(quiz.cards) },
   };
 
   return data;
 };
 
-export default function JokeRoute() {
+export default function QuizRoute() {
   const data = useLoaderData<LoaderData>();
 
   return (
