@@ -3,9 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const db = new PrismaClient();
 
 async function seed() {
-  await Promise.all(
-    getQuizzes().map((quiz) => db.quiz.create({ data: quiz }))
-  );
+  await Promise.all(getQuizzes().map((quiz) => db.quiz.create({ data: quiz })));
 }
 
 seed();
@@ -19,8 +17,8 @@ function getQuizzes() {
           { front: "1:1 - front", back: "1:1 - back" },
           { front: "1:2 - front", back: "1:2 - back" },
           { front: "1:3 - front", back: "1:3 - back" },
-        ]
-      }
+        ],
+      },
     },
     {
       title: "Quiz 2",
@@ -31,5 +29,5 @@ function getQuizzes() {
         ],
       },
     },
-  ]
+  ];
 }

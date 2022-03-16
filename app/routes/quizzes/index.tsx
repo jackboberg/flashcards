@@ -1,17 +1,12 @@
-import {
-  Link,
-  LoaderFunction,
-  Outlet,
-  useCatch,
-  useLoaderData,
-} from "remix";
+import { useCatch, useLoaderData, type LoaderFunction } from "remix";
 import { isEmpty } from "lodash";
 
-import { getQuizzes, Quiz } from "~/utils/quiz.server";
+import { QuizList } from "~/components/quiz";
+import { getQuizzes, type Quiz } from "~/utils/quiz.server";
 
 interface LoaderData {
   quizzes: Quiz[];
-};
+}
 
 export const loader: LoaderFunction = async () => {
   const quizzes = await getQuizzes();
@@ -28,18 +23,7 @@ export const loader: LoaderFunction = async () => {
 export default function QuizzesRoute() {
   const data = useLoaderData<LoaderData>();
 
-  return (
-    <div>
-      <ul>
-        {data.quizzes.map((quiz) => (
-          <li key={`quiz-${quiz.id}`}>
-            <Link to={quiz.id}>{quiz.title}</Link>
-          </li>
-        ))}
-      </ul>
-      <Outlet />
-    </div>
-  );
+  return <QuizList quizzes={data.quizzes} />;
 }
 
 export function CatchBoundary() {
@@ -60,11 +44,11 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-    console.error(error);
+  console.error(error);
 
-    return (
-      <div>
-        <p>{`There was an error loading quizzes. Sorry.`}</p>
-      </div>
-    );
+  return (
+    <div>
+      <p>{`There was an error loading quizzes. Sorry.`}</p>
+    </div>
+  );
 }

@@ -1,37 +1,29 @@
-import {
-  LoaderFunction,
-  useCatch,
-  useLoaderData,
-  useParams,
-} from "remix";
+import { LoaderFunction, useCatch, useLoaderData, useParams } from "remix";
+import { shuffle } from "lodash";
 
 import { QuizDisplay } from "~/components/quiz";
-import { getQuiz, QuizWithCards } from "~/utils/quiz.server";
+import { getQuiz, type QuizWithCards } from "~/utils/quiz.server";
 
 interface LoaderData {
   quiz: QuizWithCards;
-};
+}
 
-export const loader: LoaderFunction = async ({
-  params: { quizId },
-}) => {
+export const loader: LoaderFunction = async ({ params: { quizId } }) => {
   const quiz = await getQuiz(quizId);
   if (!quiz) {
     throw new Response("Not found.", { status: 404 });
   }
   const data: LoaderData = {
-    quiz: quiz,
+    quiz: { ...quiz, cards: shuffle(quiz.cards) },
   };
 
   return data;
 };
 
-export default function JokeRoute() {
+export default function QuizRoute() {
   const data = useLoaderData<LoaderData>();
 
-  return (
-    <QuizDisplay quiz={data.quiz} />
-  );
+  return <QuizDisplay quiz={data.quiz} />;
 }
 
 export function CatchBoundary() {
@@ -53,12 +45,12 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-    console.error(error);
+  console.error(error);
 
-    const { quizId } = useParams();
-    return (
-      <div>
-        <p>{`There was an error loading quiz by the id ${quizId}. Sorry.`}</p>
-      </div>
-    );
+  const { quizId } = useParams();
+  return (
+    <div>
+      <p>{`There was an error loading quiz by the id ${quizId}. Sorry.`}</p>
+    </div>
+  );
 }
